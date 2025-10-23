@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultură Română Premodernă - Studiu Academic</title>
+    <style>
+        .dictionary-icon {
+    position: fixed;
+    top: 2rem;
+    right: 6rem;
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f5e6d3;
+    font-size: 1.3rem;
+    z-index: 1000;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: transparent;
+}
+
+.dictionary-icon:hover {
+    opacity: 1;
+    border-color: rgba(0, 0, 0, 0.7);
+}
+
+        .link-button {
+            position: fixed;
+            top: 2rem;
+            right: 10rem;
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f5e6d3;
+            font-size: 1.3rem;
+            z-index: 1000;
+            opacity: 0.7;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .link-button:hover {
+            opacity: 1;
+            border-color: rgba(0, 0, 0, 0.7);
+        }
+        .dictionary-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.dictionary-modal.active {
+    display: flex;
+}
+
+.dictionary-content {
+     position: relative;
+            background: rgba(222, 210, 189, 0.98);
+            border: 1px solid rgba(180, 160, 130, 0.3);
+            border-radius: 8px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            animation: scaleIn 0.3s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+.dictionary-content h2 {
+     font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #3d3d3d;
+            font-weight: 600;
+            text-align: center;
+}
+
+.dictionary-entry {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(230, 220, 200, 0.95);
+    border-left: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.dictionary-entry h3 {
+    color: #000000;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+}
+
+.dictionary-entry p {
+      font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #000000;
+}
+
+.dictionary-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    color: #000000;
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.dictionary-close:hover {
+    opacity: 1;
+    transform: rotate(90deg);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+           font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #d4c5a9 0%, #c4b59a 50%, #b3a289 100%);
+            color: #2d2619;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(40, 30, 20, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(30, 25, 20, 0.4) 0%, transparent 50%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(20, 15, 10, 0.03) 2px,
+                    rgba(20, 15, 10, 0.03) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(20, 15, 10, 0.03) 2px,
+                    rgba(20, 15, 10, 0.03) 4px
+                );
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 4px 4px, 4px 4px;
+            background-position: 0 0, 2px 2px;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+             display: flex;
+            min-height: 100vh;
+        }
+
+       
+        .sidebar {
+             width: 280px;
+            background: rgba(230, 220, 200, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 2px solid rgba(139, 111, 71, 0.4);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+            animation: slideInLeft 0.6s ease-out;
+            z-index: 100;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .sidebar h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #3d3d3d;
+            text-align: center;
+            font-weight: 600;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(139, 111, 71, 0.3);
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-section h3 {
+            font-size: 1.1rem;
+            color: #2d2619;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            padding: 0.75rem;
+            background: rgba(200, 185, 160, 0.5);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            user-select: none;
+            position: relative;
+        }
+
+        .nav-section h3:hover {
+            background: rgba(180, 165, 140, 0.7);
+            transform: translateX(5px);
+        }
+
+        .nav-section h3.active {
+            background: rgba(160, 145, 120, 0.8);
+            font-weight: 600;
+        }
+
+        .nav-section h3::after {
+            content: '▼';
+            position: absolute;
+            right: 0.75rem;
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .nav-section h3.active::after {
+            transform: rotate(180deg);
+        }
+
+        .nav-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .nav-menu.show {
+            max-height: 800px;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: #3d3d3d;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin: 0.25rem 0;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            background: rgba(220, 205, 180, 0.3);
+            border-radius: 4px;
+        }
+
+        .nav-menu a.subsection {
+            display: none;
+        }
+
+        .nav-menu a.subsection.show {
+            display: block;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(200, 185, 160, 0.5);
+            border-left-color: #8b6f47;
+            padding-left: 1.5rem;
+        }
+
+        .nav-menu a.active {
+            background: rgba(180, 165, 140, 0.7);
+            border-left-color: #6d5535;
+            font-weight: 600;
+        }
+
+        main {
+            margin-left: 280px;
+            flex: 1;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero {
+            background: rgba(139, 111, 71, 0.15);
+            backdrop-filter: blur(5px);
+            padding: 4rem 3rem;
+            text-align: center;
+            border-bottom: 3px solid rgba(139, 111, 71, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            color: #2d2619;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #4a3f2f;
+            font-style: italic;
+        }
+
+        .content-wrapper {
+            padding: 3rem;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section {
+            background: rgba(245, 238, 220, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(180, 160, 130, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.6s ease-out;
+            display: none;
+        }
+
+        .section.visible {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: #3d3d3d;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(139, 111, 71, 0.3);
+            font-weight: 600;
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            color: #4a3f2f;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 500;
+        }
+
+        .section h4 {
+            font-size: 1.2rem;
+            color: #5a4f3f;
+            margin: 1rem 0 0.5rem 0;
+            font-style: italic;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #2d2619;
+            text-align: justify;
+        }
+
+        .section ul {
+            margin: 1rem 0 1rem 2rem;
+            list-style-type: disc;
+        }
+
+        .section ul li {
+            margin-bottom: 0.75rem;
+            color: #2d2619;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background: rgba(220, 205, 180, 0.5);
+            padding: 1.5rem;
+            border-left: 4px solid #8b6f47;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+        }
+
+        .accent-button {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f5e6d3;
+            font-size: 1.5rem;
+            z-index: 1000;
+            opacity: 0.7;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .accent-button:hover {
+            opacity: 1;
+            border-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .image-modal.active {
+            display: flex;
+        }
+
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .close-modal:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+
+            main {
+                margin-left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .content-wrapper {
+                padding: 1.5rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Cuprins</h2>
+            
+            <div class="nav-section">
+                <h3 data-section="religioasa">DIMENSIUNEA RELIGIOASĂ</h3>
+                <div id="religioasa-menu" class="nav-menu">
+                    <a href="#" data-target="religioasa" data-subsection="introducere" data-main="true">I. Introducere</a>
+                    <a href="#" data-target="religioasa" data-subsection="introducere-repere" data-parent="introducere" class="subsection" style="padding-left: 2rem; font-size: 0.9rem;">1.1 Repere ale cazului</a>
+                    <a href="#" data-target="religioasa" data-subsection="introducere-formulare" data-parent="introducere" class="subsection" style="padding-left: 2rem; font-size: 0.9rem;">1.2 Formularea cazului</a>
+                    <a href="#" data-target="religioasa" data-subsection="introducere-descriere" data-parent="introducere" class="subsection" style="padding-left: 2rem; font-size: 0.9rem;">1.3 Descrierea și analiza</a>
+                    <a href="#" data-target="religioasa" data-subsection="aspecte-comune" data-main="true">II. Mentalitatea medievală</a>
+                    <a href="#" data-target="religioasa" data-subsection="aspecte-credinta" data-parent="aspecte-comune" class="subsection" style="padding-left: 2rem; font-size: 0.9rem;">2.1 Caracteristici generale</a>
+                    <a href="#" data-target="religioasa" data-subsection="aspecte-limbaj" data-parent="aspecte-comune" class="subsection" style="padding-left: 2rem; font-size: 0.9rem;">2.2 Scriitori și literatura</a>
+                    <a href="#" data-target="religioasa" data-subsection="diferente" data-main="true">III. Comparația textelor</a>
+                    <a href="#" data-target="religioasa" data-subsection="diferente-aspecte" data-parent="diferente" class="subsection" style="padding-left: 2rem; font-size: 0.9rem;">3.1 Aspecte comune</a>
+                    <a href="#" data-target="religioasa" data-subsection="diferente-comparative" data-parent="diferente" class="subsection" style="padding-left: 2rem; font-size: 0.9rem;">3.2 Diferențe între texte</a>
+                    <a href="#" data-target="religioasa" data-subsection="diferente-mesaj" data-parent="diferente" class="subsection" style="padding-left: 2rem; font-size: 0.9rem;">3.3 Mesajul și semnificația</a>
+                    <a href="#" data-target="religioasa" data-subsection="diferente-concluzie" data-parent="diferente" class="subsection" style="padding-left: 2rem; font-size: 0.9rem;">3.4 Concluzie</a>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <h3 data-section="istorica">CONȘTIINȚA ISTORICĂ</h3>
+                <div id="istorica-menu" class="nav-menu">
+                    <a href="#" data-target="istorica" data-subsection="introducere-istorica">Introducere</a>
+                    <a href="#" data-target="istorica" data-subsection="cronici">Cronicile Românești</a>
+                    <a href="#" data-target="istorica" data-subsection="literatura-istorica">Literatura Istorică</a>
+                    <a href="#" data-target="istorica" data-subsection="identitate">Identitate Națională</a>
+                    <a href="#" data-target="istorica" data-subsection="video-istorica">Material Video</a>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <header class="hero" id="heroSection">
+                <h1 id="heroTitle">Dimensiunea religioasă a existenței</h1>
+                <p id="heroSubtitle">De la Scriptură la scriitura în cultura română premodernă</p>
+            </header>
+
+            <button id="accentButton" class="accent-button">❖</button>
+            <button id="dictionaryButton" class="dictionary-icon">📖</button>
+            <button id="linkButton" class="link-button" onclick="window.location.href='proiectrom1.html'">🔗</button>
+
+            <div class="image-modal" id="imageModal">
+                <button id="closeModal" class="close-modal">&times;</button>
+                <img id="modalImage" src="" alt="Surprise Image">
+            </div>
+
+            <div id="dictionaryModal" class="dictionary-modal">
+                <div class="dictionary-content">
+                    <button id="closeDictionary" class="dictionary-close">&times;</button>
+                    <h2>Glosar de termeni</h2>
+                    
+                    <div class="dictionary-entry">
+                        <h3>Homo religiosus</h3>
+                        <p>Termen latin care desemnează omul religios, persoana pentru care dimensiunea religioasă este esențială în viață. În contextul medieval, se referă la mentalitatea care percepe existența prin prisma credinței și a relației cu divinitatea.</p>
+                    </div>
+                    
+                    <div class="dictionary-entry">
+                        <h3>Didahie</h3>
+                        <p>Gen literar religios de factură moralizatoare; predică sau învățătură cu scop educativ și spiritual, destinată să ghideze credincioșii pe calea virtuții.</p>
+                    </div>
+                    
+                    <div class="dictionary-entry">
+                        <h3>Scriptura Sacră</h3>
+                        <p>Biblia; ansamblul textelor sfinte ale creștinismului, considerate inspirate de Dumnezeu. Include Vechiul și Noul Testament.</p>
+                    </div>
+                    
+                    <div class="dictionary-entry">
+                        <h3>Slavonă</h3>
+                        <p>Limba slavonă veche, folosită în cult și în primele scrieri religioase din spațiul românesc înainte de adoptarea limbii române în Biserica Ortodoxă.</p>
+                    </div>
+                    
+                    <div class="dictionary-entry">
+                        <h3>Eclezial</h3>
+                        <p>Relativ la Biserică; care aparține sau se referă la instituția bisericească și la activitățile ei religioase și culturale.</p>
+                    </div>
+                    
+                    <div class="dictionary-entry">
+                        <h3>Psalm</h3>
+                        <p>Cântare religioasă sau poezie biblică de laudă către Dumnezeu, parte din Vechiul Testament. Psalmii au fost traduși și adaptați în multe limbi, inclusiv în română de Dosoftei.</p>
+                    </div>
+                    
+                    <div class="dictionary-entry">
+                        <h3>Moralizator</h3>
+                        <p>Care are scopul de a învăța morala, de a ghida spre comportament virtuos și respectarea normelor etice și religioase.</p>
+                    </div>
+                    
+                    <div class="dictionary-entry">
+                        <h3>Cronicile românești</h3>
+                        <p>Opere istorice care consemnează evenimente din trecut, scrise de cronicari ca Grigore Ureche, Miron Costin și Ion Neculce. Au contribuit la formarea conștiinței istorice și la dezvoltarea limbii literare române.</p>
+                    </div>
+                    
+                    <div class="dictionary-entry">
+                        <h3>Cărturar</h3>
+                        <p>Persoană învățată, erudit; în contextul premodernității românești, cei care cultivau știința de carte, adesea prelați sau boieri educați.</p>
+                    </div>
+                    
+                    <div class="dictionary-entry">
+                        <h3>Conștiință istorică</h3>
+                        <p>Percepția colectivă a trecutului unui popor, sentimentul apartenenței la o continuitate istorică și culturală. Se formează prin literatură, cronici și tradiție orală.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                <!-- DIMENSIUNEA RELIGIOASA CONTENT -->
+                <div id="religioasa-content" class="content-section">
+                    <!-- I. INTRODUCERE -->
+                    <section id="introducere" class="section">
+                        <h2>I. Introducere</h2>
+                    </section>
+
+                    <section id="introducere-repere" class="section">
+                        <h3>1.1 Repere ale cazului</h3>
+                        
+                        <div class="highlight">
+                            <p><strong>Religia reprezintă o componentă importantă a culturii unui popor.</strong> Sentimentul religios se manifestă în:</p>
+                            <ul>
+                                <li>cadrul bisericii (legătura cu Dumnezeu se exprimă public)</li>
+                                <li>dincolo de zidurile ei (prin modul de a gândi al oamenilor, în obiceiurile lor, în literatură/muzică etc.)</li>
+                            </ul>
+                        </div>
+
+                        <p>Componenta religioasă a culturii române este foarte vie în perioada premodernă.</p>
+
+                        <h4>În Evul Mediu:</h4>
+                        <ul>
+                            <li>creștinismul devine o religie bazată pe carte</li>
+                            <li>cuvântul scris – mai întâi, manuscris, apoi tipărit – circulă prin cărțile de cult în limba slavonă</li>
+                            <li>traducerea cărților de cult grecești – nevoia Bizanțului de a creștina popoarele slave</li>
+                            <li>Chiril și Metodiu traduc Biblia și cărțile liturgice în slavonă</li>
+                            <li>religia și literatura dezvoltă palier comun (sec. XVI) – prelați și cărturari contribuie la modelarea limbii române</li>
+                        </ul>
+
+                        <h4>Cultura românească (sec. XVI - XVIII)</h4>
+                        <ul>
+                            <li>la nivelul culturii cărturărești: religie creștină, carte religioasă</li>
+                            <li>la nivelul culturii populare: creștinism popular și folclor</li>
+                        </ul>
+                    </section>
+
+                    <section id="introducere-formulare" class="section">
+                        <h3>1.2 Formularea cazului</h3>
+                        
+                        <div class="highlight">
+                            <h4>Tema: Zona de interferență dintre religie și literatură</h4>
+                            <p>Religia, alături de istorie, este cel dintâi fundal de manifestare a culturii scrise și a literaturii.</p>
+                        </div>
+
+                        <h4>Cartea religioasă românească: limba slavonă → limba română</h4>
+
+                        <p>Trăirea religioasă determină trecerea prin mai multe filtre a dogmei creștine și a cărților sfinte:</p>
+                        <ul>
+                            <li>al identității și al culturii colective</li>
+                            <li>al identității și al culturii individuale</li>
+                        </ul>
+
+                        <p>Dimensiunea religioasă capătă treptat forme de expresie românească, mai întâi prin actul traducerii, apoi prin actul creației individuale.</p>
+                    </section>
+
+                    <section id="introducere-descriere" class="section">
+                        <h3>1.3 Descrierea și analiza cazului</h3>
+
+                        <h4>Cultura românească premodernă:</h4>
+                        <ul>
+                            <li>grup cultural eclezial</li>
+                            <li>grup cultural cărturăresc</li>
+                            <li>grup cultural folcloric</li>
+                        </ul>
+
+                        <h4>Primele forme de manifestare ale culturii românești scrise sunt legate de:</h4>
+                        <ul>
+                            <li>religia creștină</li>
+                            <li>instituția eclezială</li>
+                            <li>necesitatea comunicării în comunitatea de credință</li>
+                        </ul>
+
+                        <h4>Biblioteca creștinismului conține două compartimente:</h4>
+                        <ul>
+                            <li>destinate spațiului eclezial</li>
+                            <li>destinate spațiului extraeclezial</li>
+                        </ul>
+                    </section>
+
+                    <!-- II. MENTALITATEA MEDIEVALA -->
+                    <section id="aspecte-comune" class="section">
+                        <h2>II. Mentalitatea medievală: homo religiosus</h2>
+                    </section>
+
+                    <section id="aspecte-credinta" class="section">
+                        <h3>2.1 Caracteristici generale</h3>
+                        
+                        <p>Omul medieval are o mentalitate diferită de cea modernă, trăind într-un univers religios. El se percepe ca un <em>homo religiosus</em>, comunicând cu Dumnezeu prin rugăciune, pelerinaje, semne şi minuni. Lumea este văzută ca o creaţie divină, iar evenimentele (catastrofe, războaie, epidemii) sunt interpretate ca pedepse sau avertismente de la Dumnezeu, menite să-l facă pe om să se pocăiască.</p>
+
+                        <p>Viaţa medievală este dominată de credinţă: călugării, preoţii şi chiar conducătorii politici recunosc puterea divină, iar religia oficială coexistă cu credinţe populare vechi, păgâne.</p>
+                    </section>
+
+                    <section id="aspecte-limbaj" class="section">
+                        <h3>2.2 Scriitori și literatura religioasă</h3>
+                        
+                        <p>În secolele XVII–XVIII, teologia se îmbină cu preocupările morale şi filozofice. Scriitori precum Dosoftei şi Miron Costin tratează teme religioase şi laice, contribuind la dezvoltarea limbii române literare. Dosoftei traduce texte religioase în versuri, iar Miron Costin promovează ideea cunoaşterii şi a reflecţiei asupra lumii şi credinţei.</p>
+                    </section>
+
+                    <!-- III. COMPARATIA TEXTELOR -->
+                    <section id="diferente" class="section">
+                        <h2>III. Comparația textelor religioase</h2>
+                        <p><em>Dosoftei și Antim Ivireanul</em></p>
+                    </section>
+
+                    <section id="diferente-aspecte" class="section">
+                        <h3>3.1 Aspecte comune</h3>
+                        
+                        <p>Textele lui Dosoftei și Antim Ivireanul reflectă profund dimensiunea religioasă a existenței, specifică literaturii române din perioada veche. Ele au fost scrise într-un context istoric și cultural dominat de credință, când literatura avea un rol moralizator și educativ, fiind strâns legată de activitatea Bisericii.</p>
+
+                        <p>Atât psalmul tradus de Dosoftei, cât și cuvântarea lui Antim Ivireanul au o funcție religioasă clară, exprimând nevoia de apropiere a omului de Dumnezeu și îndemnând la o viață curată, morală.</p>
+
+                        <div class="highlight">
+                            <p><strong>Credință și morală:</strong> Ambele texte pornesc de la ideea că existența umană este subordonată voinței divine. Credința, nădejdea și pocăința sunt valorile centrale care ghidează omul în lupta cu suferința și păcatul.</p>
+                            
+                            <p>De asemenea, scrierile îndeplinesc o funcție moralizatoare: Dosoftei oferă un model de rugăciune și meditație, iar Antim Ivireanul îndeamnă la fapte bune și respectarea poruncilor biblice. Prin acestea, ambii autori își propun formarea spirituală și morală a credincioșilor.</p>
+                        </div>
+
+                        <h4>Limbaj și stil</h4>
+                        <p>Limbajul celor doi este puternic influențat de stilul biblic, prin folosirea arhaismelor, a construcțiilor solemne și a expresiilor cu rezonanță religioasă. Totodată, ambele opere contribuie la întărirea limbii române literare, fiind printre primele texte culte de mare valoare scrise în română.</p>
+                    </section>
+
+                    <section id="diferente-comparative" class="section">
+                        <h3>3.2 Diferențe între cele două texte</h3>
+
+                        <h4>Genul literar și forma artistică</h4>
+                        <div class="highlight">
+                            <p><strong>Dosoftei:</strong> „Psalmul lui David sau a lui Ieremia, 136" este o poezie religioasă versificată, o traducere cu valoare literară a psalmilor din Vechiul Testament. Textul este liric, muzical și meditativ.</p>
+
+                            <p><strong>Antim Ivireanul:</strong> „Cuvânt de învățătură la Stretenia Domnului nostru Iisus Hristos" este o didahie (predică), scrisă în proză oratorică, având o structură argumentativă, cu scop instructiv și moral.</p>
+                        </div>
+
+                        <h4>Tematica și viziunea asupra lumii</h4>
+                        <p><strong>Dosoftei</strong> exprimă durerea poporului aflat în suferință și dorul de Dumnezeu. Psalmul 136 este o plângere colectivă, simbol al robiei, dar și al speranței în eliberare prin credință. Lumea este văzută ca un loc al încercărilor, unde mântuirea vine prin rugăciune și răbdare.</p>
+
+                        <p><strong>Antim Ivireanul</strong>, dimpotrivă, pune accentul pe acțiunea morală. El vorbește despre respectarea poruncilor și despre nevoia de îndreptare a sufletului prin fapte bune, smerenie și iubire de aproapele. Lumea, în viziunea sa, poate fi îndreptată prin respectarea legii divine.</p>
+
+                        <h4>Tonul și intenția comunicativă</h4>
+                        <p><strong>La Dosoftei,</strong> tonul este melancolic și duios, specific rugăciunii și meditației poetice. Textul transmite suferința și speranța unui credincios care se încrede în Dumnezeu chiar și în vremuri de restriște.</p>
+
+                        <p><strong>La Antim Ivireanul,</strong> tonul este grav, autoritar și moralizator. El vorbește cu puterea unui predicator, îndemnând credincioșii la ascultare, pocăință și dreptate.</p>
+                    </section>
+
+                    <section id="diferente-mesaj" class="section">
+                        <h3>3.3 Mesajul și semnificația religioasă</h3>
+
+                        <h4>Dosoftei</h4>
+                        <div class="highlight">
+                            <p>În psalmul lui Dosoftei, mesajul central este acela că Dumnezeu nu-și uită poporul, iar credința este singura cale spre mântuire. Chiar în mijlocul durerii și al exilului, omul trebuie să își păstreze nădejdea.</p>
+                        </div>
+
+                        <h4>Antim Ivireanul</h4>
+                        <div class="highlight">
+                            <p>În didahia lui Antim Ivireanul, mesajul principal este chemarea la împlinirea legii divine prin fapte și credință. Omul are datoria să trăiască moral și să-și curățească sufletul, pentru că doar astfel poate atinge adevărata fericire spirituală.</p>
+                        </div>
+                    </section>
+
+                    <section id="diferente-concluzie" class="section">
+                        <h3>3.4 Concluzie</h3>
+
+                        <div class="highlight">
+                            <p>Atât Dosoftei, cât și Antim Ivireanul sunt reprezentanți ai spiritualității creștine românești din perioada veche. Primul este poetul sensibil al suferinței și al nădejdii, iar al doilea este oratorul rațiunii și al disciplinei morale.</p>
+
+                            <p>Prin scrierile lor, cei doi autori ilustrează credința ca formă de existență, iar literatura lor devine o mărturie a legăturii profunde dintre om și Dumnezeu, contribuind totodată la dezvoltarea limbii și culturii române.</p>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- CONSTIINTA ISTORICA CONTENT -->
+                <div id="istorica-content" class="content-section">
+                    <section id="introducere-istorica" class="section">
+                        <h2>Formarea Conștiinței Istorice</h2>
+                        <h3>Istorie, Literatură, Conștiință Istorică</h3>
+                        
+                        <p>Conștiința istorică a poporului român s-a format treptat prin intermediul cronicilor, legendelor și literaturii. Această conștiință reprezintă fundamentul identității naționale și continuității culturale în fața provocărilor istorice.</p>
+                    </section>
+
+                    <section id="cronici" class="section">
+                        <h3>Cronicile Românești - Memoria Colectivă</h3>
+                        <p>Cronicile lui Grigore Ureche, Miron Costin și Ion Neculce reprezintă pietre de temelie în formarea conștiinței istorice românești. Aceste lucrări nu doar consemnează evenimente, ci construiesc o narațiune identitară, subliniind originea romană, continuitatea și demnitatea poporului român.</p>
+                    </section>
+
+                    <section id="literatura-istorica" class="section">
+                        <h3>Literatura cu Conținut Istoric</h3>
+                        <p>Dincolo de cronici, literatura populară - balade, legende, cântece eroice - a păstrat vie memoria istorică în conștiința colectivă. Mihai Viteazul, Ștefan cel Mare și alți voievozi au devenit simboluri ale rezistenței și aspirațiilor naționale, perpetuate prin tradiție orală și scrisă.</p>
+                    </section>
+
+                    <section id="identitate" class="section">
+                        <h3>Construirea Identității Naționale</h3>
+                        <p>Procesul de formare a conștiinței istorice a fost intrinsec legat de afirmarea identității naționale. În contextul dominațiilor străine și al fragmentării politice, conștiința istorică a oferit coeziune spirituală și speranța unității viitoare. Literatura a devenit astfel un instrument de rezistență culturală și afirmare identitară.</p>
+                    </section>
+
+                    <section id="video-istorica" class="section">
+                        <h2>Material Video Educațional</h2>
+                        <div class="video-container">
+                            <div class="video-placeholder">
+                                <p>📹 Conștiința Istorică - Material Video</p>
+                                <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.7;">
+                                    Pentru a adăuga un video YouTube, înlocuiți comentariul din codul HTML<br>
+                                    cu: &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;&lt;/iframe&gt;
+                                </p>
+                            </div>
+                            <iframe src="https://www.youtube.com/watch?v=eMef3Zljp24&list=RDQMKPXjwQKXTIw&start_radio=1" allowfullscreen></iframe> 
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+      
+const dictionaryButton = document.getElementById('dictionaryButton');
+const dictionaryModal = document.getElementById('dictionaryModal');
+const closeDictionary = document.getElementById('closeDictionary');
+
+dictionaryButton.addEventListener('click', function() {
+    dictionaryModal.classList.add('active');
+});
+
+closeDictionary.addEventListener('click', function() {
+    dictionaryModal.classList.remove('active');
+});
+
+dictionaryModal.addEventListener('click', function(e) {
+    if (e.target === dictionaryModal) {
+        dictionaryModal.classList.remove('active');
+    }
+});
+
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && dictionaryModal.classList.contains('active')) {
+        dictionaryModal.classList.remove('active');
+    }
+});
+        const accentButton = document.getElementById('accentButton');
+        const imageModal = document.getElementById('imageModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalImage = document.getElementById('modalImage');
+
+   
+        const imageURL = 'https://media1.tenor.com/m/izV9DSDnnPYAAAAd/puya-trening.gif';
+
+        let clickCount = 0;
+        let clickTimer = null;
+
+        accentButton.addEventListener('click', function() {
+            clickCount++;
+            
+        
+            this.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 100);
+
+           
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 2000);
+
+            if (clickCount === 5) {
+                modalImage.src = imageURL;
+                imageModal.classList.add('active');
+                clickCount = 0;
+            }
+        });
+
+        closeModal.addEventListener('click', function() {
+            imageModal.classList.remove('active');
+        });
+
+        imageModal.addEventListener('click', function(e) {
+            if (e.target === imageModal) {
+                imageModal.classList.remove('active');
+            }
+        });
+
+       
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && imageModal.classList.contains('active')) {
+                imageModal.classList.remove('active');
+            }
+        });
+
+   
+        const navHeaders = document.querySelectorAll('.nav-section h3');
+        const contentSections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('.nav-section a');
+        const heroTitle = document.getElementById('heroTitle');
+        const heroSubtitle = document.getElementById('heroSubtitle');
+        
+        let currentMainSection = null;
+
+        // Hero content for each section
+        const heroContent = {
+            'religioasa': {
+                title: 'Dimensiunea religioasă a existenței',
+                subtitle: 'De la Scriptură la scriitura în cultura română premodernă'
+            },
+            'istorica': {
+                title: 'Formarea Conștiinței Istorice Românești',
+                subtitle: 'Cronici și Identitate Națională'
+            }
+        };
+
+        function updateHero(section) {
+            if (heroContent[section]) {
+                heroTitle.textContent = heroContent[section].title;
+                heroSubtitle.textContent = heroContent[section].subtitle;
+            }
+        }
+
+        navHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const section = this.getAttribute('data-section');
+                const menu = document.getElementById(section + '-menu');
+                
+                // Toggle menu
+                menu.classList.toggle('show');
+                
+                // Toggle header active state
+                this.classList.toggle('active');
+                
+                // Show content section
+                contentSections.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                const targetContent = document.getElementById(section + '-content');
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+
+                // Update hero section
+                updateHero(section);
+            });
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = this.getAttribute('data-target');
+                const subsection = this.getAttribute('data-subsection');
+                const isMain = this.getAttribute('data-main') === 'true';
+                const parent = this.getAttribute('data-parent');
+                
+                // Make sure the content section is active
+                contentSections.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                const targetContent = document.getElementById(target + '-content');
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+
+                // Update hero section
+                updateHero(target);
+                
+                // Hide all sections first
+                const allSections = targetContent.querySelectorAll('.section');
+                allSections.forEach(s => s.classList.remove('visible'));
+                
+                if (isMain) {
+                    // Main section clicked - show main section and its subsections
+                    currentMainSection = subsection;
+                    
+                    // Show the main section header
+                    const mainSection = document.getElementById(subsection);
+                    if (mainSection) {
+                        mainSection.classList.add('visible');
+                    }
+                    
+                    // Show/hide subsection links in sidebar
+                    const parentLinks = document.querySelectorAll(`a[data-parent="${subsection}"]`);
+                    parentLinks.forEach(subLink => {
+                        subLink.classList.toggle('show');
+                    });
+                    
+                    // Scroll to main section
+                    if (mainSection) {
+                        mainSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                } else {
+                    // Subsection clicked - show parent main section and this subsection
+                    const mainSection = document.getElementById(parent);
+                    if (mainSection) {
+                        mainSection.classList.add('visible');
+                    }
+                    
+                    const subsectionElement = document.getElementById(subsection);
+                    if (subsectionElement) {
+                        subsectionElement.classList.add('visible');
+                        subsectionElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+                
+                // Update active state
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Initialize the page
+        if (contentSections.length > 0) {
+            contentSections[0].classList.add('active');
+            document.getElementById('religioasa-menu').classList.add('show');
+            navHeaders[0].classList.add('active');
+            updateHero('religioasa');
+        }
+    </script>
+</body>
+</html>

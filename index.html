@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Hub - Your Innovation Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #e0e0e0;
+        }
+
+        header {
+            background: #121212;
+            border-bottom: 1px solid #252525;
+            padding: 1.5rem 2rem;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c79081 0%, #dfa579 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(199, 144, 129, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #dfa579;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            color: #e0e0e0;
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #c79081 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(199, 144, 129, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #909090;
+            margin-bottom: 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: #1a1a1a;
+            border: 1px solid #252525;
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: #3a3a3a;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(199, 144, 129, 0.1);
+        }
+
+        .project-card.wip {
+            border: 2px dashed #ff6b6b;
+            background: #1a1414;
+        }
+
+        .project-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #c79081 0%, #dfa579 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(199, 144, 129, 0.3);
+        }
+
+        .project-card h3 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            color: #909090;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-authors {
+            color: #606060;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #252525;
+        }
+
+        .project-authors strong {
+            color: #c79081;
+            font-style: normal;
+        }
+
+        .project-authors.placeholder {
+            color: #404040;
+        }
+
+        .wip-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa06b 100%);
+            color: white;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.02);
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, #c79081 0%, #dfa579 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(223, 165, 121, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #c79081;
+            border: 2px solid #c79081;
+        }
+
+        .btn-secondary:hover {
+            background: #c79081;
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background: #2a2a2a;
+        }
+
+        .btn:disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        footer {
+            background: #121212;
+            border-top: 1px solid #252525;
+            padding: 2rem;
+            text-align: center;
+            color: #606060;
+            margin-top: auto;
+        }
+
+        .subdomain-section {
+            background: #1a1a1a;
+            border: 1px solid #252525;
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .subdomain-section h2 {
+            color: #ffffff;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .subdomain-section p {
+            color: #909090;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        main, header, footer {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="hero">
+                <h1>Project Hub</h1>
+                <p>Access centralizat pentru proiecte</p>
+            </div>
+
+            <div class="projects-grid" id="projects">
+                <div class="project-card">
+                    <div class="project-icon">📖</div>
+                    <h3>Proiect Romana 2025</h3>
+                    <p></p>
+                    <div class="project-authors">
+                        <strong>Created by:</strong> Sociu Eduard, Manea Antonio, Voros Adrian, Cirjan Luca.
+                    </div>
+                    <a href="prjr1_v3_kahoot.html" class="btn">Intra</a>
+                </div>
+
+                <div class="project-card wip">
+                    <span class="wip-badge">🚧 Work in Progress</span>
+                    <div class="project-icon">💼</div>
+                    <h3>Proiect...</h3>
+                    <p>Work in project.</p>
+                    <div class="project-authors placeholder">
+                        <strong>Created by:</strong> Nimeni inca...
+                    </div>
+                    <button class="btn" disabled>Intra</button>
+                </div>
+
+                <div class="project-card wip">
+                    <span class="wip-badge">🚧 Work in Progress</span>
+                    <div class="project-icon">🎨</div>
+                    <h3>Proiect...</h3>
+                    <p>Work in project.</p>
+                    <div class="project-authors placeholder">
+                        <strong>Created by:</strong> Nimeni inca...
+                    </div>
+                    <button class="btn" disabled>Intra</button>
+                </div>
+            </div>
+
+            
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Sociu Eduard.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultură Română Premodernă - Studiu Academic</title>
+    <style>
+        .dictionary-icon {
+    position: fixed;
+    top: 2rem;
+    right: 6rem;
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f5e6d3;
+    font-size: 1.3rem;
+    z-index: 1000;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: transparent;
+}
+
+.dictionary-icon:hover {
+    opacity: 1;
+    border-color: rgba(0, 0, 0, 0.7);
+}
+        .dictionary-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.dictionary-modal.active {
+    display: flex;
+}
+
+.dictionary-content {
+     position: relative;
+            background: rgba(222, 210, 189, 0.98);
+            border: 1px solid rgba(180, 160, 130, 0.3);
+            border-radius: 8px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            animation: scaleIn 0.3s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+.dictionary-content h2 {
+     font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #3d3d3d;
+            font-weight: 600;
+            text-align: center;
+}
+
+.dictionary-entry {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(230, 220, 200, 0.95);
+    border-left: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.dictionary-entry h3 {
+    color: #000000;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+}
+
+.dictionary-entry p {
+      font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #000000;
+}
+
+.dictionary-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    color: #000000;
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.dictionary-close:hover {
+    opacity: 1;
+    transform: rotate(90deg);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+           font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #d4c5a9 0%, #c4b59a 50%, #b3a289 100%);
+            color: #2d2619;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(40, 30, 20, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(30, 25, 20, 0.4) 0%, transparent 50%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(20, 15, 10, 0.03) 2px,
+                    rgba(20, 15, 10, 0.03) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(20, 15, 10, 0.03) 2px,
+                    rgba(20, 15, 10, 0.03) 4px
+                );
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 4px 4px, 4px 4px;
+            background-position: 0 0, 2px 2px;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+             display: flex;
+            min-height: 100vh;
+        }
+
+       
+        .sidebar {
+             width: 280px;
+            background: rgba(230, 220, 200, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 2px solid rgba(139, 111, 71, 0.4);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+            animation: slideInLeft 0.6s ease-out;
+            z-index: 100;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .sidebar h2 {
+          color: #6d5843;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid rgba(109, 88, 67, 0.5);
+            letter-spacing: 0.5px;
+            font-weight: 400;
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-section h3 {
+            color: #7d6b56;
+            font-size: 0.95rem;
+            margin-bottom: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            background: rgba(139, 111, 71, 0.15);
+        }
+
+        .nav-section h3:hover {
+            bbackground: rgba(109, 88, 67, 0.25);
+            transform: translateX(3px);
+        }
+
+        .nav-section h3.active {
+             background: rgba(109, 88, 67, 0.3);
+            color: #6d5843;
+        }
+
+        .nav-section ul {
+            list-style: none;
+            display: none;
+            margin-top: 0.5rem;
+        }
+
+        .nav-section ul.show {
+            display: block;
+        }
+
+        .nav-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-section a {
+            color: #4a3f32;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-section a:hover {
+            background: rgba(109, 88, 67, 0.2);
+            color: #6d5843;
+            transform: translateX(5px);
+            padding-left: 1rem;
+        }
+
+        .nav-section a.active {
+            background: rgba(109, 88, 67, 0.25);
+            color: #6d5843;
+        }
+
+       
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 3rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header {
+          text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(230, 220, 200, 0.85);
+            border-radius: 15px;
+            border: 1px solid rgba(109, 88, 67, 0.4);
+            animation: glow 3s ease-in-out infinite;
+        }
+         @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(109, 88, 67, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(109, 88, 67, 0.5);
+            }
+        }
+
+        .header h1 {
+             color: #6d5843;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+           color: #7d6b56;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+          background: rgba(230, 220, 200, 0.75);
+            backdrop-filter: blur(5px);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #7d6b56;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(109, 88, 67, 0.3);
+        }
+
+        .section h2 {
+              color: #6d5843;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section h2::before {
+           content: '◆';
+            margin-right: 0.8rem;
+            color: #7d6b56;
+            animation: pulse 2s ease-in-out infinite;
+        }
+ @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.2);
+            }
+        }
+        .section h3 {
+            color: #5a4a38;
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            color: #b0a090;
+            line-height: 1.9;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(109, 88, 67, 0.3);
+            background: rgba(230, 220, 200, 0.9);
+            border: 2px solid rgba(109, 88, 67, 0.4);
+        }
+
+        .video-container iframe,
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #6d5843;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+      
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #000000;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+             background: #6d5843;
+        }
+
+       
+        .accent-icon {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-size: 1.5rem;
+            z-index: 1000;
+            opacity: 0.7;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .accent-icon:hover {
+            opacity: 1;
+            border-color: rgba(0, 0, 0, 0.6);
+        }
+
+     
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #000000;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #000000;
+            transform: rotate(90deg);
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dictionary-icon" id="dictionaryButton">📖</div>
+
+
+<div class="dictionary-modal" id="dictionaryModal">
+    <div class="dictionary-content">        
+        <button class="dictionary-close" id="closeDictionary">×</button>
+        <h2>Dicționar de Termeni</h2>
+        
+        <div class="dictionary-entry">
+            <h3>Psaltire</h3>
+            <p>Carte de cult creștină care conține Cartea Psalmilor din Vechiul Testament.</p>
+        </div>
+
+        <div class="dictionary-entry">
+            <h3>Octoih</h3>
+            <p>Carte de cult ortodoxă care cuprinde cântările liturgice pentru cele opt glasuri muzicale bisericești.</p>
+        </div>
+    </div>
+</div>
+
+    <div class="accent-icon" id="accentButton">◆</div>
+    
+  
+    <div class="modal" id="imageModal">
+        
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">×</button>
+
+            <img src="https://media1.tenor.com/m/izV9DSDnnPYAAAAd/puya-trening.gif" alt="Portrait" id="modalImage">
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <aside class="sidebar">
+            <h2>Cuprins</h2>
+            
+            <div class="nav-section">
+                <h3 data-section="religioasa">Dimensiunea Religioasă</h3>
+                <ul id="religioasa-menu">
+                    <li><a href="#" data-target="religioasa" data-subsection="introducere-religioasa">Introducere</a></li>
+                    <li><a href="#" data-target="religioasa" data-subsection="scriptura">Scriptura Sacră</a></li>
+                    <li><a href="#" data-target="religioasa" data-subsection="literatura-religioasa">Literatura Religioasă</a></li>
+                    <li><a href="#" data-target="religioasa" data-subsection="influente">Influențe Culturale</a></li>
+                    <li><a href="#" data-target="religioasa" data-subsection="video-religioasa">Material Video</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 data-section="istorica">Conștiința Istorică</h3>
+                <ul id="istorica-menu">
+                    <li><a href="#" data-target="istorica" data-subsection="introducere-istorica">Introducere</a></li>
+                    <li><a href="#" data-target="istorica" data-subsection="cronici">Cronicile Românești</a></li>
+                    <li><a href="#" data-target="istorica" data-subsection="literatura-istorica">Literatura Istorică</a></li>
+                    <li><a href="#" data-target="istorica" data-subsection="identitate">Identitate Națională</a></li>
+                    <li><a href="#" data-target="istorica" data-subsection="video-istorica">Material Video</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Cultură Română Premodernă</h1>
+                <p>Studiu despre dimensiunea religioasă și formarea conștiinței istorice</p>
+            </header>
+
+            <!-- Section 1: Dimensiunea religioasă -->
+            <div id="religioasa-content" class="content-section">
+                <section id="introducere-religioasa" class="section">
+                    <h2>I. Dimensiunea Religioasă a Existenței</h2>
+                    <h3>De la Scriptură la Scriere în Cultura Română Premodernă</h3>
+                    
+                    <p>Cultura română premodernă este profund marcată de dimensiunea religioasă, care a reprezentat fundamentul spiritual și intelectual al societății. Relația dintre Scriptură și scriere marchează evoluția gândirii și literaturii românești, în care sacrul și profanul se îmbină într-o sinteză culturală unică.</p>
+                </section>
+
+                <section id="scriptura" class="section">
+                    <h3>Scriptura Sacră - Fundament Cultural</h3>
+                    <p>Traducerile Scripturii în limba română au reprezentat nu doar un act religios, ci și unul cultural de o importanță majoră. Începând cu Coresi în secolul al XVI-lea, procesul de traducere a textelor sacre a contribuit decisiv la formarea limbii literare românești și la consolidarea identității culturale.</p>
+                </section>
+
+                <section id="literatura-religioasa" class="section">
+                    <h3>Literatura Religioasă și Impactul Său</h3>
+                    <p>Scrierile religioase - psaltiri, octoihe, cazanii - au devenit vehicule ale educației și transmiterii valorilor. Acestea au modelat viziunea asupra lumii, au oferit repere morale și au creat o comunitate de gândire fundamentată pe valori creștine.</p>
+                </section>
+
+                <section id="influente" class="section">
+                    <h3>Influențe Bizantine și Slavone</h3>
+                    <p>Cultura bizantină și slavonă au influențat profund spiritualitatea românească. Adaptarea și integrarea acestor tradiții au creat un specific cultural care îmbină elementele universale ale creștinismului cu particularitățile locale, rezultând într-o sinteză culturală originală.</p>
+                </section>
+
+                <section id="video-religioasa" class="section">
+                    <h2>Material Video Educațional</h2>
+                    <div class="video-container">
+                        <div class="video-placeholder">
+                            <p>📹 Dimensiunea Religioasă - Material Video</p>
+                            <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.7;">
+                                Pentru a adăuga un video YouTube, înlocuiți comentariul din codul HTML<br>
+                                cu: &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;&lt;/iframe&gt;
+                            </p>
+                        </div>
+                      <iframe src="https://www.youtube.com/watch?v=eMef3Zljp24&list=RDQMKPXjwQKXTIw&start_radio=1" allowfullscreen></iframe> 
+                    </div>
+                </section>
+            </div>
+
+            <!-- Section 2: Formarea conștiinței istorice -->
+            <div id="istorica-content" class="content-section">
+                <section id="introducere-istorica" class="section">
+                    <h2>II. Formarea Conștiinței Istorice</h2>
+                    <h3>Istorie, Literatură, Conștiință Istorică</h3>
+                    
+                    <p>Conștiința istorică a poporului român s-a format treptat prin intermediul cronicilor, legendelor și literaturii. Această conștiință reprezintă fundamentul identității naționale și continuității culturale în fața provocărilor istorice.</p>
+                </section>
+
+                <section id="cronici" class="section">
+                    <h3>Cronicile Românești - Memoria Colectivă</h3>
+                    <p>Cronicile lui Grigore Ureche, Miron Costin și Ion Neculce reprezintă pietre de temelie în formarea conștiinței istorice românești. Aceste lucrări nu doar consemnează evenimente, ci construiesc o narațiune identitară, subliniind originea romană, continuitatea și demnitatea poporului român.</p>
+                </section>
+
+                <section id="literatura-istorica" class="section">
+                    <h3>Literatura cu Conținut Istoric</h3>
+                    <p>Dincolo de cronici, literatura populară - balade, legende, cântece eroice - a păstrat vie memoria istorică în conștiința colectivă. Mihai Viteazul, Ștefan cel Mare și alți voievozi au devenit simboluri ale rezistenței și aspirațiilor naționale, perpetuate prin tradiție orală și scrisă.</p>
+                </section>
+
+                <section id="identitate" class="section">
+                    <h3>Construirea Identității Naționale</h3>
+                    <p>Procesul de formare a conștiinței istorice a fost intrinsec legat de afirmarea identității naționale. În contextul dominațiilor străine și al fragmentării politice, conștiința istorică a oferit coeziune spirituală și speranța unității viitoare. Literatura a devenit astfel un instrument de rezistență culturală și afirmare identitară.</p>
+                </section>
+
+                <section id="video-istorica" class="section">
+                    <h2>Material Video Educațional</h2>
+                    <div class="video-container">
+                        <div class="video-placeholder">
+                            <p>📹 Conștiința Istorică - Material Video</p>
+                            <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.7;">
+                                Pentru a adăuga un video YouTube, înlocuiți comentariul din codul HTML<br>
+                                cu: &lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"&gt;&lt;/iframe&gt;
+                            </p>
+                        </div>
+                        
+                       <iframe src="https://www.youtube.com/watch?v=eMef3Zljp24&list=RDQMKPXjwQKXTIw&start_radio=1" allowfullscreen></iframe> 
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+      
+const dictionaryButton = document.getElementById('dictionaryButton');
+const dictionaryModal = document.getElementById('dictionaryModal');
+const closeDictionary = document.getElementById('closeDictionary');
+
+dictionaryButton.addEventListener('click', function() {
+    dictionaryModal.classList.add('active');
+});
+
+closeDictionary.addEventListener('click', function() {
+    dictionaryModal.classList.remove('active');
+});
+
+dictionaryModal.addEventListener('click', function(e) {
+    if (e.target === dictionaryModal) {
+        dictionaryModal.classList.remove('active');
+    }
+});
+
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && dictionaryModal.classList.contains('active')) {
+        dictionaryModal.classList.remove('active');
+    }
+});
+        const accentButton = document.getElementById('accentButton');
+        const imageModal = document.getElementById('imageModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalImage = document.getElementById('modalImage');
+
+   
+        const imageURL = 'https://media1.tenor.com/m/izV9DSDnnPYAAAAd/puya-trening.gif';
+
+        let clickCount = 0;
+        let clickTimer = null;
+
+        accentButton.addEventListener('click', function() {
+            clickCount++;
+            
+        
+            this.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 100);
+
+           
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 2000);
+
+            if (clickCount === 5) {
+                modalImage.src = imageURL;
+                imageModal.classList.add('active');
+                clickCount = 0; // Reset counter
+            }
+        });
+
+        closeModal.addEventListener('click', function() {
+            imageModal.classList.remove('active');
+        });
+
+        imageModal.addEventListener('click', function(e) {
+            if (e.target === imageModal) {
+                imageModal.classList.remove('active');
+            }
+        });
+
+       
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && imageModal.classList.contains('active')) {
+                imageModal.classList.remove('active');
+            }
+        });
+
+   
+        const navHeaders = document.querySelectorAll('.nav-section h3');
+        const contentSections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('.nav-section a');
+
+        navHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const section = this.getAttribute('data-section');
+                const menu = document.getElementById(section + '-menu');
+                
+                
+                menu.classList.toggle('show');
+                
+               
+                this.classList.toggle('active');
+                
+                
+                contentSections.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                const targetContent = document.getElementById(section + '-content');
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
+        });
+
+      
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = this.getAttribute('data-target');
+                const subsection = this.getAttribute('data-subsection');
+                
+              
+                contentSections.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                const targetContent = document.getElementById(target + '-content');
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+                
+                
+                const subsectionElement = document.getElementById(subsection);
+                if (subsectionElement) {
+                    subsectionElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+              
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+       
+        if (contentSections.length > 0) {
+            contentSections[0].classList.add('active');
+            document.getElementById('religioasa-menu').classList.add('show');
+            navHeaders[0].classList.add('active');
+        }
+    </script>
+</body>
+</html>

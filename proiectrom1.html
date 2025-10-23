@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texte Medievale Românești</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'EB Garamond', serif;
+            background: linear-gradient(135deg, #c9b896 0%, #b8a687 50%, #a89578 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, transparent 1px, transparent 40px),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, transparent 1px, transparent 40px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .manuscripts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .manuscript {
+            background: linear-gradient(to bottom, #fdfbf7 0%, #f5f1e8 100%);
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.8),
+                0 0 0 1px rgba(139,69,19,0.2);
+            position: relative;
+            border: 2px solid #d4af7a;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .manuscript:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        
+        .manuscript:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        
+        .manuscript::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139,69,19,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139,69,19,0.03) 0%, transparent 50%);
+            pointer-events: none;
+            border-radius: 8px;
+        }
+        
+        .ornament-top, .ornament-bottom {
+            text-align: center;
+            color: #8b4513;
+            font-size: 20px;
+            margin: 15px 0;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .ornament-top {
+            animation-delay: 0.8s;
+        }
+        
+        .ornament-bottom {
+            animation-delay: 1.2s;
+        }
+        
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            color: #654321;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            line-height: 1.6;
+        }
+        
+        .content {
+            font-size: 17px;
+            line-height: 1.85;
+            color: #2c2416;
+        }
+        
+        .poem-content {
+            text-align: left;
+        }
+        
+        .poem-content p {
+            margin-bottom: 1.2em;
+        }
+        
+        .prose-content {
+            text-align: justify;
+            text-indent: 35px;
+        }
+        
+        .prose-content p {
+            margin-bottom: 1.5em;
+        }
+        
+        .prose-content p:first-letter {
+            font-size: 64px;
+            line-height: 0.8;
+            float: left;
+            margin: 6px 10px 0 0;
+            color: #8b4513;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(139,69,19,0.2);
+        }
+        
+        .chapter-number {
+            font-family: 'Cinzel', serif;
+            font-size: 42px;
+            color: #8b4513;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(139,69,19,0.2);
+        }
+        
+        .initial-word {
+            font-weight: 500;
+            color: #654321;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 1200px) {
+            .manuscripts-row {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .manuscript {
+                padding: 40px 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .manuscript {
+                padding: 30px 20px;
+            }
+            
+            .title {
+                font-size: 18px;
+            }
+            
+            .chapter-number {
+                font-size: 36px;
+            }
+            
+            .content {
+                font-size: 16px;
+                line-height: 1.8;
+            }
+            
+            .prose-content {
+                text-indent: 25px;
+            }
+            
+            .prose-content p:first-letter {
+                font-size: 52px;
+                margin: 5px 8px 0 0;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            body::before {
+                display: none;
+            }
+            
+            .manuscripts-row {
+                page-break-inside: avoid;
+            }
+            
+            .manuscript {
+                box-shadow: none;
+                border: 1px solid #d4af7a;
+                page-break-inside: avoid;
+            }
+            
+            .navigation {
+                display: none;
+            }
+        }
+        
+        
+        .navigation {
+            text-align: center;
+            margin-top: 50px;
+            padding-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+            animation-delay: 1.4s;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            background: linear-gradient(to bottom, #fdfbf7 0%, #f5f1e8 100%);
+            color: #654321;
+            padding: 20px 50px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.8),
+                0 0 0 1px rgba(139,69,19,0.2);
+            border: 2px solid #d4af7a;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139,69,19,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139,69,19,0.03) 0%, transparent 50%);
+            pointer-events: none;
+            border-radius: 8px;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 25px 70px rgba(0,0,0,0.6),
+                inset 0 1px 0 rgba(255,255,255,0.9),
+                0 0 0 1px rgba(139,69,19,0.3);
+            border-color: #c49a6c;
+            color: #8b4513;
+        }
+        
+        .nav-button:hover::before {
+            opacity: 0.5;
+        }
+        
+        .nav-button:active {
+            transform: translateY(0px);
+            box-shadow: 
+                0 15px 50px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.8),
+                0 0 0 1px rgba(139,69,19,0.2);
+        }
+        
+        .button-ornament {
+            color: #8b4513;
+            margin: 0 12px;
+            font-size: 14px;
+            opacity: 0.7;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .button-ornament:first-child {
+            animation-delay: 0s;
+        }
+        
+        .button-ornament:last-child {
+            animation-delay: 1s;
+        }
+        
+        /* Animații */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 0.6;
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        .nav-button:hover .button-ornament {
+            animation: float 1s ease-in-out infinite;
+        }
+        
+        .button-text {
+            position: relative;
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .navigation {
+                margin-top: 30px;
+            }
+            
+            .nav-button {
+                padding: 16px 40px;
+                font-size: 15px;
+            }
+            
+            .button-ornament {
+                margin: 0 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="manuscripts-row">
+            <!-- Primul text - Versuri -->
+            <div class="manuscript">
+                <div class="ornament-top">⚜ ❦ ⚜</div>
+                
+                <div class="title">Viata Lumii de Miron Costin (1633-1691)</div>
+                
+                <div class="ornament-top">❦</div>
+                
+                <div class="content poem-content">
+                    <p>A lumii cântu cu jale cumplită viiața,<br>
+                    Cu griji și primejdii cum iaste și ața:<br>
+                    Prea supțire și-n scurtă vreme trăitoare.<br>
+                    O, lume hicleană, lume înșelătoare!</p>
+
+                    <p>Trec zilele ca umbra, ca umbra de vară,<br>
+                    Cele ce trec nu mai vin, nici să-ntorcu iară.<br>
+                    Trece veacul desfrânatu, trec ani cu roată.<br>
+                    Fug vremile ca umbra și nici o poartă</p>
+
+                    <p>A le opri nu poate. Trec toate prăvălite<br>
+                    Lucrurile lumii, și mai mult cumplite.<br>
+                    Și ca apa în cursul său cum nu să oprește.<br>
+                    Așa cursul al lumii nu să contenește.</p>
+
+                    <p>Fum și umbră sântu toate, visuri și părere.<br>
+                    Ce nu petrece lumea și în ce nu-i cădere?<br>
+                    Spuma mării și nor suptu cer trecătoriu,<br>
+                    Ce e în lume să nu aibă nume muritoriu?</p>
+
+                    <p>Zice David prorocul: "Viața iaste floara,<br>
+                    Nu trăiaște, ce îndată iaste trecătoarea".<br>
+                    "Viiarme sântu eu și nu om", tot acela strigă<br>
+                    O, hicleană, în toate vremi cum să nu să plângă</p>
+
+                    <p>Toate câte-s, pre tine? Ce hălăduiaește<br>
+                    Neprăvălit, nestrămutat? Ce nu stăruiaește<br>
+                    Spre cădere de tine? Tu cu vreme toate<br>
+                    Primenești și nimica să stea în veci nu poate,<br>
+                    Ceriul faptu de Dumnezeu cu putere mare,<br>
+                    Minunată zidire, și el fârșit are</p>
+                </div>
+                
+                <div class="ornament-bottom">❦</div>
+            </div>
+            
+            <!-- Al doilea text - Cronică -->
+            <div class="manuscript">
+                <div class="ornament-top">⚜ ❦ ⚜</div>
+                
+                <div class="chapter-number"></div>
+                <div class="title">O sama de cuvinte<br>de Ion Neculc</div>
+                
+                <div class="ornament-top">❦</div>
+                
+                <div class="content prose-content">
+                    <p><span class="initial-word">Ștefan-vodă</span> cel Bun, bătându-l turcii la Războieni, au mărsu să intre în Cetatea Neamțului. Și fiind mumă-sa în cetate, nu l-au lăsat să intre și i-au dzis că pasirea în cuibul său nu piere. Ce să să ducă în sus, să strângă oaste, că izdânda va fi a lui. Și așè, pe cuvântul mâne-sa, s-au dus în sus și au strânsu oaste.</p>
+
+                    <p>Iară împăratul turcescu au vinit cu toată puterea lui la Cetatea Neamțului. Și au suit pușcile deasupra unui munte pre despre Moldova. Și au început a bate Cetatea Neamțului foarte tare. Iar pre acee vreme era un neamțu închis în cetate. Și vădzind că bat cetatea, au dzis păzitorilor să spuie mumei lui Ștefan-vodă să-l sloboadă de la închisoare, din temniță, pre dânsul, că el va mântui cetatea de acel greu. Deci, slobodzin¬du-l pre acel neamțu de la închisoare, s-au și apucat acel neamțu de au îndreptat pușcile din cetate asupra turcilor, unde sta acolo în munte, de avè nevoie cetatea. Și au și lovit în gura unii pușci turcești, de au sfărmat-o. Și au început a bate în corturile turcilor, cât și boldul de la cortul împăratului l-au sfărmat. Deci n-au mai putut sta turcii întru acel vârvu de munte, de unde avè cetatea nevoie, ce numai le-au căutat a să da în laturi de la acel locǔ.</p>
+
+                    <p>Iară Ștefan-vodă, mergând de la Cetatea Neamțului în sus pre Moldova, au mărsu pe la Voroneț, unde trăiè un părinte sihastru, pre anume Daniil. Și bătând Ștefan-vodă în ușa sihastrului, să-i descuie, au răspunsu sihastrul să aștepte Ștefan¬vodă afară pănă s-a istovi ruga. Și după ce ș-au istovit sihastrul ruga, l-au chemat în chilie pre Ștefan-vodă. Și s-au ispovedit Ștefan-vodă la dânsul. Și-au întrebat Ștefan-vodă pre sihastru ce va mai face, că nu poate să să mai bate cu turcii: închina-va țara la turci, au ba? Iar sihastrul au dzis să nu o închine, că războiul este a lui, numai, după ce va izbândi, să facă o mănăstire acolo, în numele Sfântului Gheorghie, să fie hramul bisericii.</p>
+
+                    <p>Deci au și purces Ștefan-vodă în sus pe la Cernăuți și pre la Hotin și au strânsu oaste, feliuri de feliuri de oameni. Și au purces în gios. Iar turcii, înțălegând că va să vie Ștefan¬vodă cu oaste în gios, au lăsat și ei Cetatea Neamțului de a o mai bate și au început a fugi spre Dunare. Iar Ștefan-vodă au început a-i goni în urmă și a-i bate, pănă i-au trecut de Dunăre. Și întorchându-s-înapoi Ștefan-vodă, s-au apucat de au făcut mănăstirea Voronețul. Și au pus hramul bisericii Sfântul Gheorghie.</p>
+                </div>
+                
+                <div class="ornament-bottom">❦</div>
+            </div>
+        </div>
+        
+        <!-- Buton de navigare -->
+        <div class="navigation">
+            <a href="prjr1_v3_kahoot.html" class="nav-button">
+                <span class="button-ornament">⚜</span>
+                <span class="button-text">Continuă</span>
+                <span class="button-ornament">⚜</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

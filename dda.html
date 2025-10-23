@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronica lui Ștefan cel Mare</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'EB Garamond', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, transparent 1px, transparent 40px),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, transparent 1px, transparent 40px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .manuscript {
+            background: linear-gradient(to bottom, #fdfbf7 0%, #f5f1e8 100%);
+            padding: 60px;
+            border-radius: 8px;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.8),
+                0 0 0 1px rgba(139,69,19,0.2);
+            position: relative;
+            border: 2px solid #d4af7a;
+        }
+        
+        .manuscript::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139,69,19,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139,69,19,0.03) 0%, transparent 50%);
+            pointer-events: none;
+            border-radius: 8px;
+        }
+        
+        .ornament-top, .ornament-bottom {
+            text-align: center;
+            color: #8b4513;
+            font-size: 24px;
+            margin: 20px 0;
+            opacity: 0.6;
+        }
+        
+        .chapter-number {
+            font-family: 'Cinzel', serif;
+            font-size: 48px;
+            color: #8b4513;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(139,69,19,0.2);
+        }
+        
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            color: #654321;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            line-height: 1.6;
+        }
+        
+        .content {
+            font-size: 19px;
+            line-height: 1.9;
+            color: #2c2416;
+            text-align: justify;
+            text-indent: 40px;
+        }
+        
+        .content p {
+            margin-bottom: 1.5em;
+        }
+        
+        .content p:first-letter {
+            font-size: 72px;
+            line-height: 0.8;
+            float: left;
+            margin: 8px 12px 0 0;
+            color: #8b4513;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(139,69,19,0.2);
+        }
+        
+        .initial-word {
+            font-weight: 500;
+            color: #654321;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .manuscript {
+                padding: 40px 25px;
+            }
+            
+            .chapter-number {
+                font-size: 36px;
+            }
+            
+            .title {
+                font-size: 16px;
+            }
+            
+            .content {
+                font-size: 17px;
+                line-height: 1.8;
+                text-indent: 30px;
+            }
+            
+            .content p:first-letter {
+                font-size: 56px;
+                margin: 6px 10px 0 0;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            body::before {
+                display: none;
+            }
+            
+            .manuscript {
+                box-shadow: none;
+                border: 1px solid #d4af7a;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="manuscript">
+            <div class="ornament-top">⚜ ❦ ⚜</div>
+            
+            <div class="chapter-number">IV</div>
+            <div class="title">Ștefan-vodă cel Bun<br>și Bătălia de la Voroneț</div>
+            
+            <div class="ornament-top">❦</div>
+            
+            <div class="content">
+                <p><span class="initial-word">Ștefan-vodă</span> cel Bun, bătându-l turcii la Războieni, au mărsu să intre în Cetatea Neamțului. Și fiind mumă-sa în cetate, nu l-au lăsat să intre și i-au dzis că pasirea în cuibul său nu piere. Ce să să ducă în sus, să strângă oaste, că izdânda va fi a lui. Și așè, pe cuvântul mâne-sa, s-au dus în sus și au strânsu oaste.</p>
+
+                <p>Iară împăratul turcescu au vinit cu toată puterea lui la Cetatea Neamțului. Și au suit pușcile deasupra unui munte pre despre Moldova. Și au început a bate Cetatea Neamțului foarte tare. Iar pre acee vreme era un neamțu închis în cetate. Și vădzind că bat cetatea, au dzis păzitorilor să spuie mumei lui Ștefan-vodă să-l sloboadă de la închisoare, din temniță, pre dânsul, că el va mântui cetatea de acel greu. Deci, slobodzin¬du-l pre acel neamțu de la închisoare, s-au și apucat acel neamțu de au îndreptat pușcile din cetate asupra turcilor, unde sta acolo în munte, de avè nevoie cetatea. Și au și lovit în gura unii pușci turcești, de au sfărmat-o. Și au început a bate în corturile turcilor, cât și boldul de la cortul împăratului l-au sfărmat. Deci n-au mai putut sta turcii întru acel vârvu de munte, de unde avè cetatea nevoie, ce numai le-au căutat a să da în laturi de la acel locǔ.</p>
+
+                <p>Iară Ștefan-vodă, mergând de la Cetatea Neamțului în sus pre Moldova, au mărsu pe la Voroneț, unde trăiè un părinte sihastru, pre anume Daniil. Și bătând Ștefan-vodă în ușa sihastrului, să-i descuie, au răspunsu sihastrul să aștepte Ștefan¬vodă afară pănă s-a istovi ruga. Și după ce ș-au istovit sihastrul ruga, l-au chemat în chilie pre Ștefan-vodă. Și s-au ispovedit Ștefan-vodă la dânsul. Și-au întrebat Ștefan-vodă pre sihastru ce va mai face, că nu poate să să mai bată cu turcii: închina-va țara la turci, au ba? Iar sihastrul au dzis să nu o închine, că războiul este a lui, numai, după ce va izbândi, să facă o mănăstire acolo, în numele Sfântului Gheorghie, să fie hramul bisericii.</p>
+
+                <p>Deci au și purces Ștefan-vodă în sus pe la Cernăuți și pre la Hotin și au strânsu oaste, feliuri de feliuri de oameni. Și au purces în gios. Iar turcii, înțălegând că va să vie Ștefan¬vodă cu oaste în gios, au lăsat și ei Cetatea Neamțului de a o mai bate și au început a fugi spre Dunare. Iar Ștefan-vodă au început a-i goni în urmă și a-i bate, pănă i-au trecut de Dunăre. Și întorchându-s-înapoi Ștefan-vodă, s-au apucat de au făcut mănăstirea Voronețul. Și au pus hramul bisericii Sfântul Gheorghie.</p>
+            </div>
+            
+            <div class="ornament-bottom">❦</div>
+        </div>
+    </div>
+</body>
+</html>
